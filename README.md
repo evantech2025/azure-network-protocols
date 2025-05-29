@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://i.imgur.com/Ua7udoS.png" alt="Traffic Examination"/>
+</p>
+
 <h1>Network Security Groups (NSGs) and Inspecting Traffic Between Azure Virtual Machines using Wireshark</h1>
 In this tutorial, we will observe various network traffic to and from Azure Virtual Machines with Wireshark as well as experiment with Network Security Groups. <br />
 
@@ -54,17 +58,19 @@ In this tutorial, we will observe various network traffic to and from Azure Virt
 ### Step 4: Connect to Windows VM
 - Use Microsoft Remote Desktop (install it if you're on Mac).
 - Connect to your Windows VM.
-- ![Step 4](images/step4_connect_rdp.png)
+ ![Step 4](https://github.com/user-attachments/assets/0e368e38-6dae-4e06-8c26-f7f43b30fcd9)
 
 ### Step 5: Install Wireshark
-- Download and install Wireshark on the Windows VM.
-- Open it and begin capturing traffic.
-- ![Step 5](images/step5_install_wireshark.png)
+- Download and install [Wireshark](https://www.wireshark.org) on the Windows VM.
+- Open it and begin capturing traffic (Ethernet is being captured).
+ ![Step 5](https://github.com/user-attachments/assets/3271a23f-cd28-43d0-82fd-b6819dd6e0ea)
 
 ### Step 6: Filter for ICMP and Ping Linux VM
 - Filter for `icmp` in Wireshark.
 - Ping the Ubuntu VM using its **private IP** from the Windows command line.
-- ![Step 6](images/step6_icmp_ping.png)
+ ![Step 6](https://github.com/user-attachments/assets/9cc248a5-8851-45a8-84f4-c9b298e5dc9d)
+ ![Step 6](https://github.com/user-attachments/assets/1bd74555-1e13-4053-89ae-06a71c42a406)
+
 
 ### Step 7: Ping a Public Website
 - In the Windows VM, run:  
@@ -72,7 +78,7 @@ In this tutorial, we will observe various network traffic to and from Azure Virt
   ping www.google.com
   ```
 - Observe ICMP traffic in Wireshark.
-- ![Step 7](images/step7_public_ping.png)
+ ![Step 7](https://github.com/user-attachments/assets/a38c34a8-9185-4013-9777-93af58205b69)
 
 ---
 
@@ -85,12 +91,16 @@ In this tutorial, we will observe various network traffic to and from Azure Virt
   ```
 - Go to the NSG of the Ubuntu VM → Inbound Rules → Deny ICMP.
 - Observe ping failure in command prompt and Wireshark.
-- ![Step 8](images/step8_nsg_block_icmp.png)
+ ![Step 8](https://github.com/user-attachments/assets/1cc1bba5-21c4-4623-bef6-69a660a5b50c)
+ ![Step 8](https://github.com/user-attachments/assets/808e3a78-57bd-45c3-8859-d421d02c699e)
+
 
 ### Step 9: Re-enable ICMP in NSG
 - Restore the Inbound ICMP rule.
 - Observe ping success resume.
-- ![Step 9](images/step9_nsg_allow_icmp.png)
+ ![Step 9](https://github.com/user-attachments/assets/073388af-0016-459f-be54-944cb7a29d33)
+ ![Step 9](https://github.com/user-attachments/assets/2c02432f-2ecc-4c13-a43d-019a80c3b787)
+
 
 ### Step 10: Observe SSH Traffic
 - In Wireshark, filter: `ssh`
@@ -100,19 +110,19 @@ In this tutorial, we will observe various network traffic to and from Azure Virt
   ```
 - Type a few commands and observe traffic.
 - Exit SSH with:
-  ```bash
+  ```
   exit
   ```
-- ![Step 10](images/step10_ssh_traffic.png)
+ ![Step 10](https://github.com/user-attachments/assets/5e02c882-cfa0-4613-967e-9b0039ec78ea)
 
 ### Step 11: Observe DHCP Traffic
-- In Wireshark, filter: `bootp` (DHCP protocol).
+- In Wireshark, filter: `dhcp` (DHCP protocol).
 - In Windows PowerShell (as admin), run:
   ```powershell
   ipconfig /renew
   ```
-- Observe DHCP discovery and offer messages.
-- ![Step 11](images/step11_dhcp.png)
+- Observe DHCP request and acknowledge messages.
+ ![Step 11](https://github.com/user-attachments/assets/fcd8618b-7282-4244-9382-6f90ec221067)
 
 ### Step 12: Observe DNS Traffic
 - In Wireshark, filter: `dns`
@@ -122,13 +132,14 @@ In this tutorial, we will observe various network traffic to and from Azure Virt
   nslookup disney.com
   ```
 - Observe DNS requests and responses.
-- ![Step 12](images/step12_dns.png)
+ ![Step 12](https://github.com/user-attachments/assets/db95b16a-18d8-4a76-aab6-8f78ee7993ae)
 
 ### Step 13: Observe RDP Traffic
 - In Wireshark, filter:  
-  ```plaintext
+  ```
   tcp.port == 3389
   ```
 - Observe continuous RDP traffic even when idle.
 - Explanation: RDP streams desktop visuals constantly between client and server.
-- ![Step 13](images/step13_rdp_traffic.png)
+ ![Step 13](https://github.com/user-attachments/assets/eabb91c8-096b-4b0f-a6e0-ae570cbd00ff)
+
